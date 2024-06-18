@@ -2,7 +2,7 @@
 
 namespace Application.Permissions.Queries.GetPermissionById
 {
-    public sealed record GetPermissionByIdQuery(int id) : IQuery<PermissionResponse>
+    public sealed record GetPermissionByIdQuery(int Id) : IQuery<PermissionResponse>
     {
     }
 }

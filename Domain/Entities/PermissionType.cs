@@ -4,6 +4,16 @@ namespace Domain.Entities
 {
     public class PermissionType : DomainObject
     {
-        public required string Description { get; set; }
+        public string Description { get; private set; }
+
+        public PermissionType(string description)
+        {
+            Description = description;
+        }
+
+        private PermissionType()
+        {
+            Description = string.Empty;
+        }
     }
 }

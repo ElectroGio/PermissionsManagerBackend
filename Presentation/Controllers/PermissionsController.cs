@@ -13,7 +13,7 @@ namespace Presentation.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(PermissionResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetPermission(int id, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetPermissionAsync(int id, CancellationToken cancellationToken)
         {
             var query = new GetPermissionByIdQuery(id);
 
@@ -25,13 +25,14 @@ namespace Presentation.Controllers
         [HttpPost]
         [ProducesResponseType(typeof(int), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> CreatePermission(
+        [ActionName(nameof(CreatePermissionAsync))]
+        public async Task<IActionResult> CreatePermissionAsync(
             [FromBody] CreatePermissionRequest request,
             CancellationToken cancellationToken)
         {
             var command = request.Adapt<CreatePermissionCommand>();
             var permissionId = await Sender.Send(command, cancellationToken);
-            return CreatedAtAction(nameof(GetPermission), new { permissionId }, permissionId);
+            return CreatedAtAction(nameof(CreatePermissionAsync), new { permissionId }, permissionId);
         }
     }
 }

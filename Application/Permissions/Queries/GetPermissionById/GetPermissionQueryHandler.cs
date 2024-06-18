@@ -18,11 +18,11 @@ namespace Application.Permissions.Queries.GetPermissionById
 
             var permission = await _dbConnection.QueryFirstOrDefaultAsync<PermissionResponse>
                 (sql,
-                new { request.id });
+                new { request.Id });
 
             if (permission is null)
             {
-                throw new PermissionNotFoundException(request.id);
+                throw new PermissionNotFoundException(request.Id);
             }
             return permission;
         }

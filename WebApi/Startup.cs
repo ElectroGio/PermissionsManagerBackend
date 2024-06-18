@@ -51,6 +51,8 @@ namespace WebApi
             builder.UseSqlServer(Configuration.GetConnectionString("SQLConnection")));
 
             services.AddScoped<IPermissionRepository, PermissionRepository>();
+            services.AddScoped<IPermissionTypeRepository, PermissionTypeRepository>();
+            
             services.AddScoped<IUnitOfWork>(
                 factory => factory.GetRequiredService<ApplicationDbContext>()
                 );
@@ -60,7 +62,13 @@ namespace WebApi
                 );
 
             services.AddTransient<ExceptionHandlingMiddleware>();
+
+            services.AddMvc(options =>
+            {
+                options.SuppressAsyncSuffixInActionNames = false;
+            });
         }
+
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
